@@ -1,0 +1,116 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2023-09-01",
+            "name": "AndreyVNET",
+            "location": "eastus",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.253.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "VMS",
+                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', 'AndreyVNET', 'VMS')]",
+                        "properties": {
+                            "addressPrefix": "10.253.0.0/24",
+                            "networkSecurityGroup": {
+                                "id": "/subscriptions/3d3e400b-6b07-4e7c-9420-8ecc2fdbb4b4/resourceGroups/AndreyResourceGroup/providers/Microsoft.Network/networkSecurityGroups/AndreyNSG"
+                            },
+                            "serviceEndpoints": [],
+                            "delegations": [],
+                            "privateEndpointNetworkPolicies": "Disabled",
+                            "privateLinkServiceNetworkPolicies": "Enabled"
+                        },
+                        "type": "Microsoft.Network/virtualNetworks/subnets"
+                    }
+                ],
+                "virtualNetworkPeerings": [
+                    {
+                        "name": "jjjjjjjjjjjjjjjjj",
+                        "id": "[resourceId('Microsoft.Network/virtualNetworks/virtualNetworkPeerings', 'AndreyVNET', 'jjjjjjjjjjjjjjjjj')]",
+                        "properties": {
+                            "peeringState": "Connected",
+                            "peeringSyncLevel": "FullyInSync",
+                            "remoteVirtualNetwork": {
+                                "id": "/subscriptions/3d3e400b-6b07-4e7c-9420-8ecc2fdbb4b4/resourceGroups/andreyresourcegroup/providers/Microsoft.Network/virtualNetworks/VNETAndrey"
+                            },
+                            "allowVirtualNetworkAccess": false,
+                            "allowForwardedTraffic": false,
+                            "allowGatewayTransit": false,
+                            "useRemoteGateways": false,
+                            "doNotVerifyRemoteGateways": false,
+                            "remoteAddressSpace": {
+                                "addressPrefixes": [
+                                    "10.255.0.0/16"
+                                ]
+                            },
+                            "remoteVirtualNetworkAddressSpace": {
+                                "addressPrefixes": [
+                                    "10.255.0.0/16"
+                                ]
+                            }
+                        },
+                        "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings"
+                    }
+                ],
+                "enableDdosProtection": false
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "apiVersion": "2023-09-01",
+            "name": "AndreyVNET/VMS",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', 'AndreyVNET')]"
+            ],
+            "properties": {
+                "addressPrefix": "10.253.0.0/24",
+                "networkSecurityGroup": {
+                    "id": "/subscriptions/3d3e400b-6b07-4e7c-9420-8ecc2fdbb4b4/resourceGroups/AndreyResourceGroup/providers/Microsoft.Network/networkSecurityGroups/AndreyNSG"
+                },
+                "serviceEndpoints": [],
+                "delegations": [],
+                "privateEndpointNetworkPolicies": "Disabled",
+                "privateLinkServiceNetworkPolicies": "Enabled"
+            }
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+            "apiVersion": "2023-09-01",
+            "name": "AndreyVNET/jjjjjjjjjjjjjjjjj",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', 'AndreyVNET')]"
+            ],
+            "properties": {
+                "peeringState": "Connected",
+                "peeringSyncLevel": "FullyInSync",
+                "remoteVirtualNetwork": {
+                    "id": "/subscriptions/3d3e400b-6b07-4e7c-9420-8ecc2fdbb4b4/resourceGroups/andreyresourcegroup/providers/Microsoft.Network/virtualNetworks/VNETAndrey"
+                },
+                "allowVirtualNetworkAccess": false,
+                "allowForwardedTraffic": false,
+                "allowGatewayTransit": false,
+                "useRemoteGateways": false,
+                "doNotVerifyRemoteGateways": false,
+                "remoteAddressSpace": {
+                    "addressPrefixes": [
+                        "10.255.0.0/16"
+                    ]
+                },
+                "remoteVirtualNetworkAddressSpace": {
+                    "addressPrefixes": [
+                        "10.255.0.0/16"
+                    ]
+                }
+            }
+        }
+    ]
+}
