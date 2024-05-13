@@ -12,7 +12,7 @@ $extractPath = Join-Path -Path $downloadDirectory -ChildPath "CPUStres_v2.0"
 $numberOfThreads = 100
 
 # Duration to run CPUStres (in seconds)
-$durationInSeconds = 10
+$durationInSeconds = 60
 
 # Download the file using Invoke-WebRequest
 Write-Host "Downloading CPUStres v2.0..."
