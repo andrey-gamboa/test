@@ -1,19 +1,25 @@
 {
-  "type": "Microsoft.Compute/virtualMachines/extensions",
-  "name": "[concat(parameters('vmName'),'/CustomScriptExtension')]",
-  "apiVersion": "2019-07-01",
-  "location": "[resourceGroup().location]",
-  "dependsOn": [
-    "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
-  ],
-  "properties": {
-    "publisher": "Microsoft.Compute",
-    "type": "CustomScriptExtension",
-    "typeHandlerVersion": "1.10",
-    "autoUpgradeMinorVersion": true,
-    "settings": {
-      "fileUris": ["https://raw.githubusercontent.com/andrey-gamboa/test/main/test.ps1"],
-      "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File test.ps1"
-    }
-  }
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "resources": [
+        {
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat('vm','/CustomScriptExtension')]",
+            "location": "eastus",
+            "properties": {
+                "publisher": "Microsoft.Compute",
+                "type": "CustomScriptExtension",
+                "typeHandlerVersion": "1.10",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "fileUris": [
+                        "https://raw.githubusercontent.com/andrey-gamboa/test/main/test.ps1"
+                    ],
+                    "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File test.ps1"
+                }
+            }
+        }
+    ]
 }
