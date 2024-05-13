@@ -12,7 +12,7 @@
     "typeHandlerVersion": "1.10",
     "autoUpgradeMinorVersion": true,
     "settings": {
-      "fileUris": ["<URL-of-your-script>"],
+      "fileUris": ["https://raw.githubusercontent.com/andrey-gamboa/test/main/test.ps1"],
       "commandToExecute": "powershell -ExecutionPolicy Unrestricted -File test.ps1"
     }
   }
